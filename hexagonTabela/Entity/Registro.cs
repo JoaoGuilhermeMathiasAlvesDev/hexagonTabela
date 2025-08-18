@@ -16,7 +16,7 @@ namespace hexagonTabela.Entity
 
         public Registro(){ }
 
-        public void AdiconareAtualizarRegistro(string nome, int idade, int estadoCivil, string cpf, string cidade, int estado)
+        public void AdiconareRegistro(string nome, int idade, int estadoCivil, string cpf, string cidade, int estado)
         {
             Nome = nome;
             Idade = idade;
@@ -26,6 +26,15 @@ namespace hexagonTabela.Entity
             Estado = (EstadoEnum)estado;
 
             Validar();
+        }
+
+        public void AtualizarRegistro(string nome, int idade, int estadoCivil, string cidade, int estado)
+        {
+            Nome = nome;
+            Idade = idade;
+            EstadoCivil = (EstadoCivilEnum)estadoCivil;
+            Cidade = cidade;
+            Estado = (EstadoEnum)estado;
         }
 
 

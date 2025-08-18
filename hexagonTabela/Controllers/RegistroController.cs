@@ -2,6 +2,7 @@
 using hexagonTabela.Serveces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
+using System.Runtime.InteropServices;
 
 namespace hexagonTabela.Controllers
 {
@@ -33,9 +34,9 @@ namespace hexagonTabela.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Deletar([FromBody]RegistroModel model)
+        public async Task<IActionResult> Deletar( Guid id)
         {
-            await _registro.Remover(model);
+            await _registro.Remover(id);
 
             return Ok();
         }

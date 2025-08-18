@@ -8,6 +8,6 @@ namespace hexagonTabela.Serveces
         Task Atualizar (RegistroModel model);
         Task<List<ObterRegistroModel>> ObterTodos();
         Task<ObterRegistroModel> ObterPorId(Guid Id);
-        Task Remover (RegistroModel model);
+        Task Remover (Guid id);
     }
 }

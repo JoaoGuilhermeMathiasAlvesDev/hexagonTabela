@@ -12,16 +12,11 @@ namespace hexagonTabela.Repository
             _hexagonContext = hexagonContext;
         }
 
-        public void Atualizar<T>(T entity)
+        public async Task Remover(T entity)
         {
-            _hexagonContext.Update(entity);
-            _hexagonContext.SaveChanges();
-        }
-
-        public void Remover(Guid id)
-        {
-            _hexagonContext.Remove(id);
-            _hexagonContext.SaveChanges();
+            _hexagonContext.Remove(entity);
+            await _hexagonContext.SaveChangesAsync();
+            
         }
 
         async Task<T> IRepositoryBase<T>.Adiconioar(T entity)
@@ -31,28 +26,23 @@ namespace hexagonTabela.Repository
             return entity;
         }
 
-        //async Task<T> IRepositoryBase<T>.Atualizar(T entity)
-        //{
-        //    _hexagonContext.Update(entity);
-        //    _hexagonContext.SaveChanges();
-        //    return entity;
-        //}
+        async Task<T> IRepositoryBase<T>.Atualizar(T entity)
+        {
+            _hexagonContext.Update(entity);
+            _hexagonContext.SaveChanges();
+            return entity;
+        }
 
         async Task<T> IRepositoryBase<T>.ObterPorId(Guid Id)
         {
-          return  await _hexagonContext.Set<T>().FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == Id);
+            return await _hexagonContext.Set<T>().FirstOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == Id);
 
         }
 
         async Task<IEnumerable<T>> IRepositoryBase<T>.ObterTodosAsync()
         {
-            return await _hexagonContext.Set<T>().ToListAsync();
+            return await _hexagonContext.Set<T>().Take(10).ToListAsync();
         }
 
-        //async Task IRepositoryBase<T>.RemoverAsync(Guid id)
-        //{
-        //    _hexagonContext?.Remove(id);
-        //    _hexagonContext.SaveChanges();
-        //}
     }
 }

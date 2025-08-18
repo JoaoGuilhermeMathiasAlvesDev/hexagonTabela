@@ -22,7 +22,7 @@ namespace hexagonTabela.Serveces
 
             var novoRegistro = new Registro();
 
-            novoRegistro.AdiconareAtualizarRegistro(
+            novoRegistro.AdiconareRegistro(
                                                 model.Nome,
                                                 model.Idade,
                                                 (int)model.EstadoCivil,
@@ -40,21 +40,15 @@ namespace hexagonTabela.Serveces
             if (model is null)
                 throw new ArgumentNullException("Registro não pode ser nullo ou vazio.");
 
+            var obterAntigoRegistroParaAtualizar = await _registroRepository.ObterPorId(model.Id);
 
 
-            var AtualizarRegistro = new Registro();
+            obterAntigoRegistroParaAtualizar.AtualizarRegistro(model.Nome, model.Idade,model.EstadoCivil,model.Cidade,model.Estado);
 
-            AtualizarRegistro.AdiconareAtualizarRegistro(
-                                                        model.Nome,
-                                                        model.Idade,
-                                                        model.EstadoCivil,
-                                                        model.Cpf,
-                                                        model.Cidade,
-                                                        model.Estado);
-                                                      
-            AtualizarRegistro.SetDataAtualizacao(AtualizarRegistro);
 
-            _registroRepository.Atualizar(AtualizarRegistro);
+            obterAntigoRegistroParaAtualizar.SetDataAtualizacao(obterAntigoRegistroParaAtualizar);
+
+            _registroRepository.Atualizar(obterAntigoRegistroParaAtualizar);
         }
 
         public async Task<ObterRegistroModel> ObterPorId(Guid Id)
@@ -103,16 +97,17 @@ namespace hexagonTabela.Serveces
             }).ToList();
         }
 
-        public async Task Remover(RegistroModel model)
+        public async Task Remover(Guid id)
         {
 
-            var verificarExiste = await _registroRepository.ObterPorId(model.Id);
-            bool existe = verificarExiste != null ? true : false;
+            var ObterRegistro = await _registroRepository.ObterPorId(id);
+            bool existe = ObterRegistro != null ? true : false;
 
             if (!existe)
                 throw new ArgumentException("Não existe esse registro");
 
-            _registroRepository.Remover(model.Id);
+            
+            _registroRepository.Remover(ObterRegistro);
         }
     }
 }
