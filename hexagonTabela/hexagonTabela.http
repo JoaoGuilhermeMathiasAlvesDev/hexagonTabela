@@ -1,0 +1,6 @@
+@hexagonTabela_HostAddress = http://localhost:5122
+
+GET {{hexagonTabela_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
