@@ -5,11 +5,11 @@ namespace hexagonTabela.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DicionariosController : Controller
+    public class DicionarioController : Controller
     {
         private readonly IDicionarioServices _services;
 
-        public DicionariosController(IDicionarioServices services)
+        public DicionarioController(IDicionarioServices services)
         {
             _services = services;
         }

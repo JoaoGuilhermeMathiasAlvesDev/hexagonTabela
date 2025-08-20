@@ -4,33 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hexagonTabela.Repository
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public class RepositoryBase<T> (HexagonContext _hexagonContext) : IRepositoryBase<T> where T : class
     {
-        private readonly HexagonContext _hexagonContext;
-        public RepositoryBase(HexagonContext hexagonContext)
-        {
-            _hexagonContext = hexagonContext;
-        }
-
         public async Task Remover(T entity)
         {
             _hexagonContext.Remove(entity);
             await _hexagonContext.SaveChangesAsync();
-            
+
         }
 
-        async Task<T> IRepositoryBase<T>.Adiconioar(T entity)
+        public async Task Adiconioar(T entity)
         {
             await _hexagonContext.AddAsync(entity);
             _hexagonContext.SaveChanges();
-            return entity;
         }
 
-        async Task<T> IRepositoryBase<T>.Atualizar(T entity)
+        public async Task Atualizar(T entity)
         {
             _hexagonContext.Update(entity);
-            _hexagonContext.SaveChanges();
-            return entity;
+            await _hexagonContext.SaveChangesAsync();
+
         }
 
         async Task<T> IRepositoryBase<T>.ObterPorId(Guid Id)

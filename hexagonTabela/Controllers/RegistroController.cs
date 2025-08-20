@@ -8,15 +8,8 @@ namespace hexagonTabela.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegistroController : Controller
+    public class RegistroController (IRegistroServices _registro) : Controller
     {
-        private readonly IRegistroServices _registro;
-
-        public RegistroController(IRegistroServices services)
-        {
-            _registro = services;
-        }
-
         [HttpPost]
         public async Task <IActionResult> Adicionar([FromBody] AdicionarResgistroModel model)
         {

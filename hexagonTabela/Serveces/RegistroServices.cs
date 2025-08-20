@@ -6,14 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace hexagonTabela.Serveces
 {
-    public class RegistroServices : IRegistroServices
+    public class RegistroServices(IRegistroRepository _registroRepository) : IRegistroServices
     {
-        private readonly IRegistroRepository _registroRepository;
-
-        public RegistroServices(IRegistroRepository registroRepository)
-        {
-            _registroRepository = registroRepository;
-        }
 
         public async Task Adicionar(AdicionarResgistroModel model)
         {
@@ -23,13 +17,13 @@ namespace hexagonTabela.Serveces
             var novoRegistro = new Registro();
 
             novoRegistro.AdiconareRegistro(
-                                                model.Nome,
-                                                model.Idade,
-                                                (int)model.EstadoCivil,
-                                                model.Cpf,
-                                                model.Cidade,
-                                                (int)model.Estado);
-                                               
+                                           model.Nome,
+                                           model.Idade,
+                                           (int)model.EstadoCivil,
+                                           model.Cpf,
+                                           model.Cidade,
+                                           (int)model.Estado);
+
 
             await _registroRepository.Adiconioar(novoRegistro);
 
@@ -43,7 +37,7 @@ namespace hexagonTabela.Serveces
             var obterAntigoRegistroParaAtualizar = await _registroRepository.ObterPorId(model.Id);
 
 
-            obterAntigoRegistroParaAtualizar.AtualizarRegistro(model.Nome, model.Idade,model.EstadoCivil,model.Cidade,model.Estado);
+            obterAntigoRegistroParaAtualizar.AtualizarRegistro(model.Nome, model.Idade, model.EstadoCivil, model.Cidade, model.Estado);
 
 
             obterAntigoRegistroParaAtualizar.SetDataAtualizacao(obterAntigoRegistroParaAtualizar);
@@ -100,14 +94,13 @@ namespace hexagonTabela.Serveces
         public async Task Remover(Guid id)
         {
 
-            var ObterRegistro = await _registroRepository.ObterPorId(id);
-            bool existe = ObterRegistro != null ? true : false;
+            var obterRegistro = await _registroRepository.ObterPorId(id);
 
-            if (!existe)
+            if (obterRegistro == null)
                 throw new ArgumentException("Não existe esse registro");
 
-            
-            _registroRepository.Remover(ObterRegistro);
+
+            _registroRepository.Remover(obterRegistro);
         }
     }
 }

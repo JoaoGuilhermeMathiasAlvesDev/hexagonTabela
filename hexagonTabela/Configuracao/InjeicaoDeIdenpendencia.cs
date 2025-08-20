@@ -10,9 +10,9 @@ namespace hexagonTabela.Configuracao
         public static void InjeicaoDeIdependenciaConfiguracao(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IRegistroServices, RegistroServices>();
-            services.AddTransient<IDicionarioServices, DicionariosServices>();
-           services.AddTransient<IRegistroRepository, RegistroRepository>();
-           services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddTransient<IDicionarioServices, DicionarioServices>();
+            services.AddTransient<IRegistroRepository, RegistroRepository>();
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
         }
     }
 }

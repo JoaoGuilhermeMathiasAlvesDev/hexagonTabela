@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace hexagonTabela.Serveces
 {
-    public class DicionariosServices : IDicionarioServices
+    public class DicionarioServices : IDicionarioServices
     {
         public async Task<Dictionary<int, string>> ObterEstadoCivilDicionairo()
         {
