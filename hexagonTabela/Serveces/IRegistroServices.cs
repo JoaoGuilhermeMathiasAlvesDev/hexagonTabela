@@ -6,7 +6,7 @@ namespace hexagonTabela.Serveces
     {
         Task Adicionar(AdicionarResgistroModel model);
         Task Atualizar (RegistroModel model);
-        Task<List<ObterRegistroModel>> ObterTodos();
+        Task<List<ObterRegistroModel>> ObterTodos(int pagina, int tamanhoPagina);
         Task<ObterRegistroModel> ObterPorId(Guid Id);
         Task Remover (Guid id);
     }

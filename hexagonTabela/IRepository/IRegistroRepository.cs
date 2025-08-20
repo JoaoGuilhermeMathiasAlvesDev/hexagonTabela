@@ -4,5 +4,6 @@ namespace hexagonTabela.IRepository
 {
     public interface IRegistroRepository : IRepositoryBase<Registro>
     {
+        Task<List<Registro>> ObterTodos(int pagina, int pageSize);
     }
 }

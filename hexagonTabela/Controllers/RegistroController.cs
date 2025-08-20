@@ -35,9 +35,9 @@ namespace hexagonTabela.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ObterRegistroModel>>> ObterRegistro()
+        public async Task<ActionResult<List<ObterRegistroModel>>> ObterRegistro(int pagina = 1, int pageSize = 10)
         {
-            var resultado = await _registro.ObterTodos();
+            var resultado = await _registro.ObterTodos(pagina,pageSize);
 
             return Ok(resultado);
         }

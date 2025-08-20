@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hexagonTabela.Repository
 {
-    public class RepositoryBase<T> (HexagonContext _hexagonContext) : IRepositoryBase<T> where T : class
+    public class RepositoryBase<T>(HexagonContext _hexagonContext) : IRepositoryBase<T> where T : class
     {
         public async Task Remover(T entity)
         {
@@ -32,10 +32,11 @@ namespace hexagonTabela.Repository
 
         }
 
-        async Task<IEnumerable<T>> IRepositoryBase<T>.ObterTodosAsync()
+        public async Task<List<T>> ObterTodos<T>(int pagina, int tamanhoPagina) where T : class
         {
-            return await _hexagonContext.Set<T>().Take(10).ToListAsync();
-        }
+            return await _hexagonContext.Set<T>().Skip((pagina - 1) * tamanhoPagina)
+                .Take(tamanhoPagina).ToListAsync();
 
+        }
     }
 }

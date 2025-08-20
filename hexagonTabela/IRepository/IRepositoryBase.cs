@@ -5,7 +5,7 @@
         Task Adiconioar(T entity);
         Task Atualizar(T entity);
         Task<T> ObterPorId(Guid Id);
-        Task<IEnumerable<T>> ObterTodosAsync();
+        Task<List<T>> ObterTodos<T>(int pagina, int tamanhoPagina) where T : class;
         Task Remover(T entity);
     }
 }

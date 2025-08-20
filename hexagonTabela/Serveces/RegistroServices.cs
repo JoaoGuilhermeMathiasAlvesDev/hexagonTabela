@@ -42,7 +42,7 @@ namespace hexagonTabela.Serveces
 
             obterAntigoRegistroParaAtualizar.SetDataAtualizacao(obterAntigoRegistroParaAtualizar);
 
-            _registroRepository.Atualizar(obterAntigoRegistroParaAtualizar);
+            await _registroRepository.Atualizar(obterAntigoRegistroParaAtualizar);
         }
 
         public async Task<ObterRegistroModel> ObterPorId(Guid Id)
@@ -70,12 +70,12 @@ namespace hexagonTabela.Serveces
             return resultado;
         }
 
-        public async Task<List<ObterRegistroModel>> ObterTodos()
+        public async Task<List<ObterRegistroModel>> ObterTodos(int pagina, int tamanhoPagina)
         {
-            var registros = await _registroRepository.ObterTodosAsync();
+            var registros = await _registroRepository.ObterTodos(pagina, tamanhoPagina);
 
-            if (registros is null)
-                throw new ArgumentNullException("Não existe registro.");
+            if (registros == null || !registros.Any())
+                throw new InvalidOperationException("Não existe registro.");
 
             return registros.Select(r => new ObterRegistroModel
             {
@@ -100,7 +100,7 @@ namespace hexagonTabela.Serveces
                 throw new ArgumentException("Não existe esse registro");
 
 
-            _registroRepository.Remover(obterRegistro);
+           await _registroRepository.Remover(obterRegistro);
         }
     }
 }
