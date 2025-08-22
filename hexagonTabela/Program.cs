@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("registroApp", builder =>
     {
-        builder.AllowAnyOrigin().AllowAnyMethod();
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); ;
     });
 });
 
