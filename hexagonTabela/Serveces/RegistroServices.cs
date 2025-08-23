@@ -16,6 +16,11 @@ namespace hexagonTabela.Serveces
 
             var novoRegistro = new Registro();
 
+            bool cpfexiste = await _registroRepository.ObterPorCpf(model.Cpf) is not null;
+            if (cpfexiste)
+                throw new Exception("O Cpf já esta cadastrado.");
+
+
             novoRegistro.AdiconareRegistro(
                                            model.Nome,
                                            model.Idade,

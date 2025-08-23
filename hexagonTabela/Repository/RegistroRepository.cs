@@ -14,6 +14,11 @@ namespace hexagonTabela.Repository
             _hexagonContext = hexagonContext;
         }
 
+        public async Task<Registro> ObterPorCpf(string cpf)
+        {
+            return await _hexagonContext.Set<Registro>().FirstAsync(c=> c.Cpf == cpf);
+        }
+
         public async Task<List<Registro>> ObterTodos(int pagina, int pageSize)
         {
             return await _hexagonContext.Set<Registro>().Skip((pagina - 1) * pageSize)
